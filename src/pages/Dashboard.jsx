@@ -10,7 +10,7 @@ import Events from "../components/dashboard/events/events_component";
 
 export default function Dashboard() {
   const history = useHistory();
-  const [component, setComponent] = useState(<Users />);
+  const [component, setComponent] = useState(<Home />);
   const [activeTab, setActiveTab] = useState(0);
 
   function switchComponent(toSwitchComponent) {
@@ -45,7 +45,13 @@ export default function Dashboard() {
                     className="nav-link active text-dark"
                     onClick={() => switchComponent("Dashboard")}
                   >
-                    <span className={activeTab === 0 ? "font-weight-bold" : ""}>
+                    <span
+                      className={
+                        activeTab === 0
+                          ? "font-weight-bold border-bottom border-primary"
+                          : ""
+                      }
+                    >
                       Dashboard
                     </span>
                   </a>
@@ -55,7 +61,13 @@ export default function Dashboard() {
                     className="nav-link"
                     onClick={() => switchComponent("Users")}
                   >
-                    <span className={activeTab === 1 ? "font-weight-bold" : ""}>
+                    <span
+                      className={
+                        activeTab === 1
+                          ? "font-weight-bold border-bottom border-info"
+                          : ""
+                      }
+                    >
                       Users
                     </span>
                   </a>
@@ -65,7 +77,13 @@ export default function Dashboard() {
                     className="nav-link"
                     onClick={() => switchComponent("Events")}
                   >
-                    <span className={activeTab === 3 ? "font-weight-bold" : ""}>
+                    <span
+                      className={
+                        activeTab === 2
+                          ? "font-weight-bold border-bottom border-success"
+                          : ""
+                      }
+                    >
                       Events
                     </span>
                   </a>
@@ -74,7 +92,10 @@ export default function Dashboard() {
             </div>
           </nav>
 
-          <main role="main" className="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+          <main
+            role="main"
+            className="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4 "
+          >
             {component}
           </main>
         </div>
