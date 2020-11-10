@@ -1,32 +1,84 @@
 import React, { useState } from "react";
 import { useAuth } from "../providers/AuthProvider";
-import { Button } from "react-bootstrap";
+import { Button, Container, Row } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
+import NavBar from "../components/navbar/navbar_component";
+import Sidebar from "../components/sidebar/sidebar_component";
+import Home from "../components/dashboard/home/home_component";
+import Users from "../components/dashboard/users/users_component";
+import Events from "../components/dashboard/events/events_component";
 
 export default function Dashboard() {
-  const { logout } = useAuth();
-  const [error, setError] = useState();
   const history = useHistory();
+  const [component, setComponent] = useState(<Users />);
+  const [activeTab, setActiveTab] = useState(0);
 
-  async function handleSubmit() {
-    try {
-      await logout();
-      history.push("/login");
-    } catch (error) {
-      setError(error.message);
+  function switchComponent(toSwitchComponent) {
+    console.log(toSwitchComponent);
+    switch (toSwitchComponent) {
+      case "Dashboard":
+        setComponent(<Home />);
+        setActiveTab(0);
+        break;
+      case "Users":
+        setComponent(<Users />);
+        setActiveTab(1);
+
+        break;
+      case "Events":
+        setComponent(<Events />);
+        setActiveTab(2);
+        break;
     }
   }
 
-  function print() {
-    console.log("E");
-  }
-
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <Button type="submit" className="w-100" onClick={handleSubmit}>
-        Logout
-      </Button>
-    </div>
+    <>
+      <NavBar />
+      <div className="container-fluid">
+        <div className="row">
+          <nav className="col-md-2 d-none d-md-block bg-white sidebar">
+            <div className="sidebar-sticky">
+              <ul className="nav flex-column">
+                <li className="nav-item">
+                  <a
+                    className="nav-link active text-dark"
+                    onClick={() => switchComponent("Dashboard")}
+                  >
+                    <span className={activeTab === 0 ? "font-weight-bold" : ""}>
+                      Dashboard
+                    </span>
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a
+                    className="nav-link"
+                    onClick={() => switchComponent("Users")}
+                  >
+                    <span className={activeTab === 1 ? "font-weight-bold" : ""}>
+                      Users
+                    </span>
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a
+                    className="nav-link"
+                    onClick={() => switchComponent("Events")}
+                  >
+                    <span className={activeTab === 3 ? "font-weight-bold" : ""}>
+                      Events
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+
+          <main role="main" className="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            {component}
+          </main>
+        </div>
+      </div>
+    </>
   );
 }

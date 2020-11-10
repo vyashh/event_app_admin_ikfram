@@ -9,21 +9,16 @@ import PrivateRoute from "./pages/PrivateRoute";
 
 function App() {
   return (
-    <Container
-      className="d-flex align-items-center justify-content-center"
-      style={{ minHeight: "100vh" }}
-    >
-      <div className="w-100" style={{ maxWidth: "400px" }}>
-        <Router>
-          <AuthProvider>
-            <Switch>
-              <PrivateRoute exact path="/" component={Dashboard} />
-              <Route path="/login" component={Login} />
-            </Switch>
-          </AuthProvider>
-        </Router>
-      </div>
-    </Container>
+    <div className="w-100">
+      <Router>
+        <AuthProvider>
+          <Switch>
+            <PrivateRoute exact path="/" component={Dashboard} />
+            <Route path="/login" component={Login} />
+          </Switch>
+        </AuthProvider>
+      </Router>
+    </div>
   );
 }
 
