@@ -1,28 +1,69 @@
-import React from "react";
-import { Nav } from "react-bootstrap";
-import { withRouter } from "react-router";
 import "./sidebar_styles.css";
 
-const Side = (props) => {
-  return (
-    <>
-      <Nav className="col-md-12 d-none d-md-block bg-light sidebar">
-        <div className="sidebar-sticky">
-          <Nav.Item>
-            <Nav.Link className="active" href="/">
-              Home
-            </Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link eventKey="link-1">Users</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link eventKey="link-2">Events</Nav.Link>
-          </Nav.Item>
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+
+export default class SideBar extends Component {
+  render() {
+    return (
+      <>
+        <div className="container-fluid">
+          <div className="row">
+            <nav className="col-md-2 d-none d-md-block bg-white sidebar">
+              <div className="sidebar-sticky">
+                <ul className="nav flex-column">
+                  <li className="nav-item text-dark">
+                    <Link to="/">
+                      <span
+                        className={
+                          this.props.activeNav === "0"
+                            ? "font-weight-bold border-bottom border-secondary text-dark nav-link"
+                            : "nav-link text-dark"
+                        }
+                      >
+                        Dashboard
+                      </span>
+                    </Link>
+                  </li>
+                  <li className="nav-item text-dark">
+                    <Link to="/users">
+                      <span
+                        className={
+                          this.props.activeNav === "1"
+                            ? "font-weight-bold border-bottom border-secondary nav-link text-dark"
+                            : "nav-link text-dark"
+                        }
+                      >
+                        Users
+                      </span>
+                    </Link>
+                  </li>
+                  <li className="nav-item text-dark">
+                    <Link to="/events">
+                      <span
+                        className={
+                          this.props.activeNav === "2"
+                            ? "font-weight-bold border-bottom border-secondary nav-link text-dark"
+                            : "nav-link text-dark"
+                        }
+                      >
+                        Events
+                      </span>
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+
+            <main
+              role="main"
+              className="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4 "
+            >
+              {this.props.children}
+            </main>
+          </div>
         </div>
-      </Nav>
-    </>
-  );
-};
-const SideBar = withRouter(Side);
-export default SideBar;
+      </>
+    );
+  }
+}
