@@ -6,11 +6,16 @@ export default class UserItemAdd extends Component {
     super(props);
 
     this.state = {
-      name: this.props.id,
-      phone: this.props.phone,
-      isTeamleider: this.props.isTeamleader,
+      name: "",
+      phone: "",
+      isTeamleider: "",
     };
   }
+
+  nameHandler = (event) => {
+    const { value, name } = event.target;
+    this.setState({ [name]: value });
+  };
 
   render() {
     // updateEvent = () => {};
@@ -25,7 +30,12 @@ export default class UserItemAdd extends Component {
     return (
       <>
         <th scope="row">
-          <input type="text" value={this.props.name} />
+          <input
+            type="text"
+            name="name"
+            value={this.props.name}
+            onChange={this.nameHandler}
+          />
         </th>
         <td>{this.props.id}</td>
         <td>{this.props.email}</td>
@@ -48,7 +58,9 @@ export default class UserItemAdd extends Component {
           <button className="btn btn-success" onClick={this.toggleIsEdit}>
             Update
           </button>
-          <button className="btn btn-danger">Delete</button>
+          <Link to="/">
+            <button className="btn btn-primary">Cancel</button>
+          </Link>
         </td>
       </>
     );

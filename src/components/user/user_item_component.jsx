@@ -39,7 +39,6 @@ export default class UserItem extends Component {
                   </button>
                 </td>
               </>
-              
             )}
           </tr>
         </tbody>
